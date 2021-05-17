@@ -27,6 +27,7 @@ class ModelsHierarchy(BaseModelAbstract):
         verbose_name = 'Номер иерархии'
         verbose_name_plural = 'Номера иерархии'
 
+
 class Productions(BaseDictionaryModelAbstract):
     def __str__(self):
         return self.name
@@ -54,6 +55,31 @@ class Compartments(BaseDictionaryModelAbstract):
     class Meta:
         verbose_name = 'Участок'
         verbose_name_plural = 'Участки'
+
+
+class SwitchCabinets(BaseDictionaryModelAbstract):
+    location_id = models.ForeignKey('Locations', on_delete=models.PROTECT, null=True,
+                                    verbose_name='Местоположение')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Коммутационный шкаф'
+        verbose_name_plural = 'Коммутационные шкафы'
+
+
+class Stations(BaseDictionaryModelAbstract):
+    ip_adress = models.CharField(max_length=15, verbose_name='IP адресс')
+    location_id = models.ForeignKey('Locations', on_delete=models.PROTECT, null=True,
+                                    verbose_name='Местоположение')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Станция'
+        verbose_name_plural = 'Станции'
 
 
 class Locations(BaseModelAbstract):

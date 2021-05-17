@@ -17,10 +17,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from dictionaries_output.views import *
 
 urlpatterns = [
-    # path('', ),
+    path('<str:dictionary_name>/', rendering_dict),
+    path('<str:dictionary_name>/<str:model_content_pk>/', rendering_hierarchy_dependent_dict),
     path('admin/', admin.site.urls),
+    # path('dictionaries_output/base_dict_output.html')
 ]
 
 if settings.DEBUG:
