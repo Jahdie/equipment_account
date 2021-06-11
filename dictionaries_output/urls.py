@@ -18,11 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from dictionaries_output.views import *
-
+from django.views.generic import TemplateView
 urlpatterns = [
-    path('<str:dictionary_name>/', rendering_dict),
-    path('<str:dictionary_name>/<str:model_content_pk>/', rendering_hierarchy_dependent_dict),
     path('admin/', admin.site.urls),
+    path('', ProductionsListView.as_view()),
+    path('<int:production_id>/', WorkshopsListView.as_view()),
+    path('<int:production_id>/<int:workshop_id>/', CompartmentsListView.as_view()),
+    path('<int:production_id>/<int:workshop_id>/<int:compartment_id>/', StationsListView.as_view()),
     # path('dictionaries_output/base_dict_output.html')
 ]
 

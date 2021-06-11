@@ -38,6 +38,8 @@ class Productions(BaseDictionaryModelAbstract):
 
 
 class Workshops(BaseDictionaryModelAbstract):
+    production_id = models.ForeignKey('Productions', on_delete=models.PROTECT, null=True, verbose_name='Производство',
+                                      related_name='production_id')
 
     def __str__(self):
         return self.name
@@ -48,6 +50,9 @@ class Workshops(BaseDictionaryModelAbstract):
 
 
 class Compartments(BaseDictionaryModelAbstract):
+    production_id = models.ForeignKey('Productions', on_delete=models.PROTECT, null=True, verbose_name='Производство',
+                                      related_name='production')
+    workshop_id = models.ForeignKey('Workshops', on_delete=models.PROTECT, null=True, verbose_name='Цех')
 
     def __str__(self):
         return self.name
@@ -71,8 +76,9 @@ class SwitchCabinets(BaseDictionaryModelAbstract):
 
 class Stations(BaseDictionaryModelAbstract):
     ip_adress = models.CharField(max_length=15, verbose_name='IP адресс')
-    location_id = models.ForeignKey('Locations', on_delete=models.PROTECT, null=True,
-                                    verbose_name='Местоположение')
+    production_id = models.ForeignKey('Productions', on_delete=models.PROTECT, null=True, verbose_name='Производство')
+    workshop_id = models.ForeignKey('Workshops', on_delete=models.PROTECT, null=True, verbose_name='Цех')
+    compartment_id = models.ForeignKey('Compartments', on_delete=models.PROTECT, null=True, verbose_name='Участок')
 
     def __str__(self):
         return self.name
